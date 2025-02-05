@@ -159,61 +159,6 @@
                 display: none; /* Ocultar la línea divisoria en dispositivos móviles */
             }
         }
-
-        /* Sidebar */
-        .sidebar {
-            width: 250px;
-            background: linear-gradient(135deg, #4d4e4e, #ff7043); /* Fondo degradado */
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-            position: fixed; /* Fijo en el lado izquierdo */
-            height: 100%; /* Ocupa toda la altura */
-        }
-
-        .sidebar ul {
-            list-style: none;
-            width: 100%;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin: 15px 0;
-        }
-
-        .sidebar ul li a {
-            display: flex;
-            align-items: center;
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            width: 100%;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .sidebar ul li a i {
-            margin-right: 10px;
-        }
-
-        .sidebar ul li a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .content {
-            margin-left: 250px; /* Ajuste para el sidebar */
-            padding: 20px;
-        }
-
-        .content h1 {
-            font-size: 28px;
-            color: #4d4e4e;
-        }
     </style>
 </head>
 <body>
@@ -255,7 +200,6 @@
             const username = document.getElementById("Usuario").value;
             const password = document.getElementById("Contraseña").value;
 
-            // Aquí puedes agregar validación más segura, por ejemplo, mediante una API
             if (username === "Recepción" && password === "03031964") {
                 sessionStorage.setItem('userName', username);
                 window.location.href = "home.html";  // Redirección al archivo home.html
