@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Directorio - VORTILUB</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="./Logo.png" type="image/png">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <h2>Menú</h2>
+      <ul>
+        <li><a href="#" id="menuInicio"><i class="fas fa-home"></i> Inicio</a></li>
+        <li><a href="#" id="menuClientes"><i class="fas fa-users"></i> Clientes</a></li>
+        <li><a href="#" id="menuVendedores"><i class="fas fa-user-tie"></i> Vendedores</a></li>
+        <li><a href="#" id="menuProveedores"><i class="fas fa-truck"></i> Proveedores</a></li>
+        <li><a href="#" id="menuComisionistas"><i class="fas fa-handshake"></i> Comisionistas</a></li>
+        <li><a href="#" id="menuDashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="#" id="menuRegistros"><i class="fas fa-folder"></i> Registros</a></li>
+        <li><button id="logoutButton"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+      <button id="menuToggle" class="menu-toggle"><i class="fas fa-bars"></i></button>
+
+      <!-- Bienvenida -->
+      <div id="welcomeMessage">
+        <h1>Bienvenido al Directorio de Vortilub</h1>
+        <p>Este sistema te permite gestionar de manera eficiente los registros de:</p>
+        <ul>
+          <li><strong>Clientes:</strong> Información sobre tus clientes.</li>
+          <li><strong>Vendedores:</strong> Registros de tu equipo de ventas.</li>
+          <li><strong>Proveedores:</strong> Detalles de tus proveedores.</li>
+          <li><strong>Comisionistas:</strong> Gestión de agentes y comisiones.</li>
+        </ul>
+        <p>Usa el menú en el lado izquierdo para navegar entre las categorías.</p>
+      </div>
+
+      <!-- Dashboard -->
+      <div id="dashboard" style="display: none;">
+        <h2><i class="fas fa-chart-bar"></i> Dashboard</h2>
+        <p>Resumen de los registros totales:</p>
+        <div class="stats-container">
+          <div class="stat-item">
+            <h3><i class="fas fa-users"></i> Clientes</h3>
+            <p id="clientesTotal">0</p>
+          </div>
+          <div class="stat-item">
+            <h3><i class="fas fa-user-tie"></i> Vendedores</h3>
+            <p id="vendedoresTotal">0</p>
+          </div>
+          <div class="stat-item">
+            <h3><i class="fas fa-truck"></i> Proveedores</h3>
+            <p id="proveedoresTotal">0</p>
+          </div>
+          <div class="stat-item">
+            <h3><i class="fas fa-handshake"></i> Comisionistas</h3>
+            <p id="comisionistasTotal">0</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla de registros -->
+      <div id="tableRegistros" style="display: none;">
+        <h2 id="tableTitle">Consultar Registros</h2>
+        <label for="categoriaSelect" class="label-dropdown">Selecciona una categoría:</label>
+        <select id="categoriaSelect" class="custom-select">
+          <option value="clientes">Clientes</option>
+          <option value="vendedores">Vendedores</option>
+          <option value="proveedores">Proveedores</option>
+          <option value="comisionistas">Comisionistas</option>
+        </select>
+        <button id="consultarRegistrosBtn" class="btn-custom">Consultar Registros</button>
+        <button id="descargarRegistrosBtn" class="btn-custom">Descargar Registros</button>
+        <button id="exportarBtn" style="display: none;" onclick="exportarAExcel()">Exportar Registros a Excel</button>
+
+        <div id="mensajeNoRegistros" style="display: none; color: red; font-weight: bold;">
+          No se encuentran registros disponibles en esta categoría.
+        </div>
+
+        <table id="registrosTable" style="display: none;">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+              <th>Acciones</th> 
+            </tr>
+          </thead>
+          <tbody id="registrosBody"></tbody>
+        </table>
+      </div>
+
+
+      <!-- Formulario de Clientes -->
+      <div id="formClientes" class="form-container" style="display: none;">
+        <h2>Formulario de Clientes</h2>
+        <form id="clientesForm">
+          <label for="clienteNombre">Nombre Completo o Razón Social:</label>
+          <input type="text" id="clienteNombre" name="clienteNombre" required>
+
+          <label for="tipoCliente">Tipo de Cliente (Persona Física o Jurídica):</label>
+          <select id="tipoCliente" name="tipoCliente" required>
+            <option value="fisica">Persona Física</option>
+            <option value="juridica">Persona Jurídica</option>
+          </select>
+
+          <label for="clienteDomicilio">Domicilio Fiscal y/o Comercial:</label>
+          <input type="text" id="clienteDomicilio" name="clienteDomicilio" required>
+
+          <label for="clienteTelefonoCorreo">Teléfono y/o Correo Electrónico:</label>
+          <input type="text" id="clienteTelefonoCorreo" name="clienteTelefonoCorreo" required>
+
+          <label for="clienteIdentificacionFiscal">Identificación Fiscal (RUC, RFC, CUIT, NIF, dependiendo del país):</label>
+          <input type="text" id="clienteIdentificacionFiscal" name="clienteIdentificacionFiscal" required>
+
+          <label for="clienteFormaPago">Forma de Pago:</label>
+          <select id="clienteFormaPago" name="clienteFormaPago" required>
+            <option value="efectivo">Efectivo</option>
+            <option value="transferencia">Transferencia</option>
+            <option value="tarjeta">Tarjeta</option>
+          </select>
+
+          <label for="clienteCondicionesCredito">Condiciones de Crédito (en caso de aplicarse):</label>
+          <input type="text" id="clienteCondicionesCredito" name="clienteCondicionesCredito">
+
+          <button type="submit" id="guardarCliente">Guardar Cliente</button>
+        </form>
+        <div class="success-message" id="mensajeExitoClientes" style="display: none;"></div>
+        <div class="error-message" id="mensajeErrorClientes" style="display: none;">Este cliente ya existe.</div>
+      </div>
+
+      <!-- Formulario de Vendedores -->
+      <div id="formVendedores" class="form-container" style="display: none;">
+        <h2>Formulario de Vendedores</h2>
+        <form id="vendedoresForm">
+          <label for="vendedorNombre">Nombre Completo:</label>
+          <input type="text" id="vendedorNombre" name="vendedorNombre" required>
+
+          <label for="vendedorIdentificacion">Identificación Personal (DNI, Pasaporte, etc.):</label>
+          <input type="text" id="vendedorIdentificacion" name="vendedorIdentificacion" required>
+
+          <label for="vendedorDireccion">Dirección:</label>
+          <input type="text" id="vendedorDireccion" name="vendedorDireccion" required>
+
+          <label for="vendedorTelefonoCorreo">Teléfono y/o Correo Electrónico:</label>
+          <input type="text" id="vendedorTelefonoCorreo" name="vendedorTelefonoCorreo" required>
+
+          <label for="vendedorContrato">Contrato o Acuerdo Comercial:</label>
+          <input type="text" id="vendedorContrato" name="vendedorContrato" required>
+
+          <label for="vendedorFormaPagoComision">Forma de Pago o Comisiones Acordadas:</label>
+          <input type="text" id="vendedorFormaPagoComision" name="vendedorFormaPagoComision" required>
+
+          <button type="submit" id="guardarVendedor">Guardar Vendedor</button>
+        </form>
+        <div class="success-message" id="mensajeExitoVendedores" style="display: none;"></div>
+        <div class="error-message" id="mensajeErrorVendedores" style="display: none;">Este vendedor ya existe.</div>
+      </div>
+
+      <!-- Formulario de Proveedores -->
+      <div id="formProveedores" class="form-container" style="display: none;">
+        <h2>Formulario de Proveedores</h2>
+        <form id="proveedoresForm">
+          <label for="proveedorNombre">Nombre Completo o Razón Social:</label>
+          <input type="text" id="proveedorNombre" name="proveedorNombre" required>
+
+          <label for="proveedorIdentificacionFiscal">Identificación Fiscal (RUC, RFC, CUIT, etc.):</label>
+          <input type="text" id="proveedorIdentificacionFiscal" name="proveedorIdentificacionFiscal" required>
+
+          <label for="proveedorDomicilio">Domicilio Fiscal y/o Comercial:</label>
+          <input type="text" id="proveedorDomicilio" name="proveedorDomicilio" required>
+
+          <label for="proveedorTelefonoCorreo">Teléfono y/o Correo Electrónico:</label>
+          <input type="text" id="proveedorTelefonoCorreo" name="proveedorTelefonoCorreo" required>
+
+          <label for="proveedorCuentaBancaria">Cuenta Bancaria para Pagos:</label>
+          <input type="text" id="proveedorCuentaBancaria" name="proveedorCuentaBancaria" required>
+
+          <label for="proveedorCatalogo">Catálogo de Productos/Servicios:</label>
+          <input type="text" id="proveedorCatalogo" name="proveedorCatalogo" required>
+
+          <label for="proveedorTerminosPago">Términos de Pago y Descuentos:</label>
+          <input type="text" id="proveedorTerminosPago" name="proveedorTerminosPago" required>
+
+          <button type="submit" id="guardarProveedor">Guardar Proveedor</button>
+        </form>
+        <div class="success-message" id="mensajeExitoProveedores" style="display: none;"></div>
+        <div class="error-message" id="mensajeErrorProveedores" style="display: none;">Este proveedor ya existe.</div>
+      </div>
+
+      <!-- Formulario de Comisionistas -->
+      <div id="formComisionistas" class="form-container" style="display: none;">
+        <h2>Formulario de Comisionistas</h2>
+        <form id="comisionistasForm">
+          <label for="comisionistaNombre">Nombre Completo:</label>
+          <input type="text" id="comisionistaNombre" name="comisionistaNombre" required>
+
+          <label for="comisionistaIdentificacion">Identificación Personal o Fiscal:</label>
+          <input type="text" id="comisionistaIdentificacion" name="comisionistaIdentificacion" required>
+
+          <label for="comisionistaDireccion">Dirección:</label>
+          <input type="text" id="comisionistaDireccion" name="comisionistaDireccion" required>
+
+          <label for="comisionistaTelefonoCorreo">Teléfono y/o Correo Electrónico:</label>
+          <input type="text" id="comisionistaTelefonoCorreo" name="comisionistaTelefonoCorreo" required>
+
+          <label for="comisionistaComision">Acuerdo de Comisiones (Porcentaje, Condiciones):</label>
+          <input type="text" id="comisionistaComision" name="comisionistaComision" required>
+
+          <label for="comisionistaBancoCuenta">Banco y Cuenta para Pagos:</label>
+          <input type="text" id="comisionistaBancoCuenta" name="comisionistaBancoCuenta" required>
+
+          <button type="submit" id="guardarComisionista">Guardar Comisionista</button>
+        </form>
+        <div class="success-message" id="mensajeExitoComisionistas" style="display: none;"></div>
+        <div class="error-message" id="mensajeErrorComisionistas" style="display: none;">Este comisionista ya existe.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logo -->
+  <img src="./Logo.png" alt="Logo" class="logo-bottom-right">
+</div> <!-- End dashboard-container -->
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión - Sistema de Gestión</title>
+    <!-- Favicon -->
+    <link rel="icon" href="./Logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos globales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e0f7fa; /* Color de fondo */
+        }
+
+        /* Fondo degradado completo */
+        .login-bg {
+            background: linear-gradient(135deg, #4d4e4e, #ff7043 );
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenedor principal */
+        .login-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 900px; /* Limitar el tamaño */
+            padding: 20px;
+        }
+
+        /* Contenedor para el logo */
+        .logo-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .logo-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Línea divisoria */
+        .divider {
+            width: 2px;
+            background-color: #dcdcdc;
+            height: 100%;
+        }
+
+        /* Contenedor del formulario de login */
+        .login-card {
+            flex: 1;
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        /* Estilo del ícono de perfil */
+        .profile-icon {
+            font-size: 60px; /* Tamaño del ícono */
+            color: #4d4e4e; /* Color del ícono */
+            margin-bottom: 20px; /* Espacio debajo del ícono */
+        }
+
+        /* Estilo de texto y botones */
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: flex;
+            align-items: center;
+            border: 1px solid #dcdcdc;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        .input-group .icon {
+            margin-right: 10px;
+            font-size: 18px;
+            color: #888;
+        }
+
+        .input-group input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 16px;
+            background-color: transparent;
+        }
+
+        .toggle-password {
+            cursor: pointer;
+            margin-left: -30px; /* Ajusta la posición según sea necesario */
+        }
+
+        button {
+            background-color: #ff7043; /* Color del botón */
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e64a19; /* Color al pasar el mouse */
+        }
+
+        /* Media Queries para móviles */
+        @media (max-width: 768px) {
+            .login-card {
+                padding: 20px;
+            }
+
+            button {
+                padding: 12px 15px;
+            }
+
+            .login-container {
+                flex-direction: column; /* Cambiar a disposición en columna */
+                gap: 20px; /* Añadir separación entre el logo y el formulario */
+            }
+
+            .divider {
+                display: none; /* Ocultar la línea divisoria en dispositivos móviles */
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #4d4e4e, #ff7043); /* Fondo degradado */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            position: fixed; /* Fijo en el lado izquierdo */
+            height: 100%; /* Ocupa toda la altura */
+        }
+
+        .sidebar ul {
+            list-style: none;
+            width: 100%;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 15px 0;
+        }
+
+        .sidebar ul li a {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .sidebar ul li a i {
+            margin-right: 10px;
+        }
+
+        .sidebar ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .content {
+            margin-left: 250px; /* Ajuste para el sidebar */
+            padding: 20px;
+        }
+
+        .content h1 {
+            font-size: 28px;
+            color: #4d4e4e;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-bg">
+        <div class="login-container">
+            <div class="logo-container">
+                <img src="./Logo_Vorti sin silueta blanca.png" alt="Logo">
+            </div>
+            <div class="divider"></div>
+            <div class="login-card">
+                <div class="profile-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h2>Bienvenido</h2>
+                <form onsubmit="return validarLogin()">
+                    <div class="input-group">
+                        <label>
+                            <span class="icon"><i class="fas fa-user"></i></span>
+                            <input type="text" id="Usuario" name="Usuario" placeholder="Usuario" required>
+                        </label>
+                    </div>
+                    <div class="input-group">
+                        <label>
+                            <span class="icon"><i class="fas fa-lock"></i></span>
+                            <input type="password" id="Contraseña" name="Contraseña" placeholder="Contraseña" required>
+                            <span class="toggle-password" onclick="togglePassword()">
+                                <i class="fas fa-eye" id="eye-icon"></i>
+                            </span>
+                        </label>
+                    </div>
+                    <button type="submit">Iniciar sesión</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function validarLogin() {
+            const username = document.getElementById("Usuario").value;
+            const password = document.getElementById("Contraseña").value;
+
+            // Aquí puedes agregar validación más segura, por ejemplo, mediante una API
+            if (username === "Rececpción" && password === "03031964") {
+                sessionStorage.setItem('userName', username);
+                window.location.href = "home.html";  // Redirección al archivo home.html
+                return false;
+            } else {
+                alert("Usuario o contraseña incorrectos.");
+                return false;
+            }
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById("Contraseña");
+            const eyeIcon = document.getElementById("eye-icon");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
+</body>
+</html>
