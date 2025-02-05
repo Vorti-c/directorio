@@ -31,7 +31,6 @@ function actualizarEstadisticas() {
 function cerrarSesion() {
   if (confirm("¿Estás seguro/a de que deseas cerrar sesión?")) {
     localStorage.removeItem("usuario"); // Borra datos del usuario en localStorage
-    // Redirigir al login con ruta relativa
     window.location.href = "/directorio/index.html"; // Usar la ruta correcta a index.html
   }
 }
