@@ -214,7 +214,7 @@ formularios.forEach(({ id, tipo }) => {
 });
 
 // Función para descargar registros con estilos
-document.getElementById("descargarRegistrosBtn").addEventListener("click", descargarRegistros);
+document.getElementById("descargarRegistrosBtn")?.addEventListener("click", descargarRegistros);
 
 function descargarRegistros() {
   const categoria = document.getElementById("categoriaSelect").value;
