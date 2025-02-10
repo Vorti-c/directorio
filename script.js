@@ -1,128 +1,156 @@
-// Función para obtener los datos de localStorage de manera segura
-const getDatos = (key) => {
-  try {
-    const storedData = localStorage.getItem(key);
-    return storedData ? JSON.parse(storedData) : [];
-  } catch (error) {
-    console.error(`Error al cargar los datos de ${key}:`, error);
-    return [];
-  }
-};
+document.addEventListener("DOMContentLoaded", function () {
+    // 🌟 Manejadores del menú
+    const menuItems = {
+        menuInicio: "welcomeMessage",
+        menuDashboard: "dashboard",
+        menuClientes: "formClientes",
+        menuVendedores: "formVendedores",
+        menuProveedores: "formProveedores",
+        menuComisionistas: "formComisionistas",
+        menuRegistros: "tableRegistros",
+    };
 
-// Cargar los datos desde localStorage
-const datos = {
-  clientes: getDatos("clientes"),
-  vendedores: getDatos("vendedores"),
-  proveedores: getDatos("proveedores"),
-  comisionistas: getDatos("comisionistas"),
-};
-
-// Actualizar estadísticas en el Dashboard
-function actualizarEstadisticas() {
-  Object.keys(datos).forEach((tipo) => {
-    const elemento = document.getElementById(`${tipo}Total`);
-    if (elemento) {
-      elemento.innerText = datos[tipo].length;
-    }
-  });
-}
-
-// Guardar datos en localStorage
-function guardarDatos(tipo, nuevoRegistro) {
-  if (datos[tipo].some((registro) => registro.nombre === nuevoRegistro.nombre)) {
-    alert("Este registro ya existe.");
-    return;
-  }
-
-  datos[tipo].push(nuevoRegistro);
-  localStorage.setItem(tipo, JSON.stringify(datos[tipo]));
-  datos[tipo] = getDatos(tipo); // Recargar datos desde localStorage
-
-  actualizarEstadisticas();
-  mostrarMensajeExito(`${capitalizeFirstLetter(tipo)} guardado exitosamente!`, tipo);
-  mostrarRegistros(tipo);
-
-  // Limpiar formulario
-  document.getElementById(`${tipo}Form`).reset();
-}
-
-// Mostrar mensaje de éxito
-function mostrarMensajeExito(mensaje, tipo) {
-  const mensajeExito = document.getElementById(`mensajeExito${capitalizeFirstLetter(tipo)}`);
-  if (!mensajeExito) {
-    console.error(`Elemento mensajeExito${capitalizeFirstLetter(tipo)} no encontrado.`);
-    return;
-  }
-
-  mensajeExito.innerText = mensaje;
-  mensajeExito.style.display = "block";
-  setTimeout(() => mensajeExito.style.display = "none", 3000);
-}
-
-// Capitalizar la primera letra
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-// Mostrar registros en la tabla
-function mostrarRegistros(tipo) {
-  const registrosBody = document.getElementById("registrosBody");
-  const registrosTable = document.getElementById("registrosTable");
-  const mensajeNoRegistros = document.getElementById("mensajeNoRegistros");
-
-  if (!registrosBody || !registrosTable || !mensajeNoRegistros) return;
-
-  registrosBody.innerHTML = "";
-  const registros = datos[tipo];
-
-  if (registros.length > 0) {
-    registros.forEach((registro, index) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${registro.nombre}</td>
-        <td>${registro.email || 'N/A'}</td>
-        <td>${registro.telefono || 'N/A'}</td>
-        <td>
-          <button class="btn btn-danger btn-sm" onclick="eliminarRegistro('${tipo}', ${index})">Eliminar</button>
-        </td>
-      `;
-      registrosBody.appendChild(row);
+    Object.keys(menuItems).forEach((id) => {
+        document.getElementById(id)?.addEventListener("click", () => {
+            Object.values(menuItems).forEach((view) => document.getElementById(view).style.display = "none");
+            document.getElementById(menuItems[id]).style.display = "block";
+        });
     });
-    registrosTable.style.display = "table";
-    mensajeNoRegistros.style.display = "none";
-  } else {
-    registrosTable.style.display = "none";
-    mensajeNoRegistros.style.display = "block";
-  }
-}
 
-// Manejo de formularios
-const formularios = [
-  { id: "clientesForm", tipo: "clientes" },
-  { id: "vendedoresForm", tipo: "vendedores" },
-  { id: "proveedoresForm", tipo: "proveedores" },
-  { id: "comisionistasForm", tipo: "comisionistas" },
-];
+    // 🌟 Guardar Registros en localStorage
+    function guardarRegistro(categoria, registro) {
+        let registros = JSON.parse(localStorage.getItem(categoria)) || [];
 
-formularios.forEach(({ id, tipo }) => {
-  const form = document.getElementById(id);
-  if (!form) return;
+        // Verificar si ya existe
+        if (registros.some((r) => r.nombre === registro.nombre)) {
+            document.getElementById(`mensajeError${capitalize(categoria)}`).style.display = "block";
+            setTimeout(() => {
+                document.getElementById(`mensajeError${capitalize(categoria)}`).style.display = "none";
+            }, 3000);
+            return;
+        }
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+        // Guardar en localStorage
+        registros.push(registro);
+        localStorage.setItem(categoria, JSON.stringify(registros));
 
-    const nombre = document.getElementById(`${tipo}Nombre`).value;
-    const email = document.getElementById(`${tipo}TelefonoCorreo`).value; // Usa el campo correcto
-    const telefono = document.getElementById(`${tipo}TelefonoCorreo`).value;
-
-    if (nombre && email) {
-      guardarDatos(tipo, { nombre, email, telefono });
-    } else {
-      alert("Por favor, complete todos los campos.");
+        // Mensaje de éxito
+        document.getElementById(`mensajeExito${capitalize(categoria)}`).style.display = "block";
+        setTimeout(() => {
+            document.getElementById(`mensajeExito${capitalize(categoria)}`).style.display = "none";
+        }, 3000);
     }
-  });
-});
 
-// Cargar estadísticas al inicio
-actualizarEstadisticas();
+    // 🌟 Función para Capitalizar (Clientes → Clientes)
+    function capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    // 🌟 Eventos para guardar registros
+    document.getElementById("clientesForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        guardarRegistro("clientes", {
+            nombre: document.getElementById("clienteNombre").value,
+            tipo: document.getElementById("tipoCliente").value,
+            domicilio: document.getElementById("clienteDomicilio").value,
+            telefonoCorreo: document.getElementById("clienteTelefonoCorreo").value,
+            identificacionFiscal: document.getElementById("clienteIdentificacionFiscal").value,
+            formaPago: document.getElementById("clienteFormaPago").value,
+            condicionesCredito: document.getElementById("clienteCondicionesCredito").value,
+        });
+        this.reset();
+    });
+
+    document.getElementById("vendedoresForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        guardarRegistro("vendedores", {
+            nombre: document.getElementById("vendedorNombre").value,
+            identificacion: document.getElementById("vendedorIdentificacion").value,
+            direccion: document.getElementById("vendedorDireccion").value,
+            telefonoCorreo: document.getElementById("vendedorTelefonoCorreo").value,
+            contrato: document.getElementById("vendedorContrato").value,
+            formaPagoComision: document.getElementById("vendedorFormaPagoComision").value,
+        });
+        this.reset();
+    });
+
+    document.getElementById("proveedoresForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        guardarRegistro("proveedores", {
+            nombre: document.getElementById("proveedorNombre").value,
+            identificacionFiscal: document.getElementById("proveedorIdentificacionFiscal").value,
+            domicilio: document.getElementById("proveedorDomicilio").value,
+            telefonoCorreo: document.getElementById("proveedorTelefonoCorreo").value,
+            cuentaBancaria: document.getElementById("proveedorCuentaBancaria").value,
+            catalogo: document.getElementById("proveedorCatalogo").value,
+            terminosPago: document.getElementById("proveedorTerminosPago").value,
+        });
+        this.reset();
+    });
+
+    document.getElementById("comisionistasForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        guardarRegistro("comisionistas", {
+            nombre: document.getElementById("comisionistaNombre").value,
+            identificacion: document.getElementById("comisionistaIdentificacion").value,
+            direccion: document.getElementById("comisionistaDireccion").value,
+            telefonoCorreo: document.getElementById("comisionistaTelefonoCorreo").value,
+            comision: document.getElementById("comisionistaComision").value,
+            bancoCuenta: document.getElementById("comisionistaBancoCuenta").value,
+        });
+        this.reset();
+    });
+
+    // 🌟 Consultar Registros
+    document.getElementById("consultarRegistrosBtn").addEventListener("click", function () {
+        const categoria = document.getElementById("categoriaSelect").value;
+        const registros = JSON.parse(localStorage.getItem(categoria)) || [];
+        const tabla = document.getElementById("registrosTable");
+        const tbody = document.getElementById("registrosBody");
+        tbody.innerHTML = "";
+
+        if (registros.length === 0) {
+            document.getElementById("mensajeNoRegistros").style.display = "block";
+            tabla.style.display = "none";
+            return;
+        } else {
+            document.getElementById("mensajeNoRegistros").style.display = "none";
+            tabla.style.display = "block";
+        }
+
+        registros.forEach((registro, index) => {
+            let row = tbody.insertRow();
+            row.insertCell(0).innerText = index + 1;
+            row.insertCell(1).innerText = registro.nombre;
+            row.insertCell(2).innerText = registro.telefonoCorreo || "-";
+            row.insertCell(3).innerText = registro.identificacionFiscal || "-";
+        });
+    });
+
+    // 🌟 Descargar Registros en Excel
+    document.getElementById("descargarRegistrosBtn").addEventListener("click", function () {
+        const categoria = document.getElementById("categoriaSelect").value;
+        const registros = JSON.parse(localStorage.getItem(categoria)) || [];
+
+        if (registros.length === 0) {
+            alert("No hay registros para exportar.");
+            return;
+        }
+
+        let wb = XLSX.utils.book_new();
+        let ws = XLSX.utils.json_to_sheet(registros);
+        XLSX.utils.book_append_sheet(wb, ws, categoria);
+        XLSX.writeFile(wb, `${categoria}_registros.xlsx`);
+    });
+
+    // 🌟 Actualizar Dashboard
+    function actualizarDashboard() {
+        document.getElementById("clientesTotal").innerText = (JSON.parse(localStorage.getItem("clientes")) || []).length;
+        document.getElementById("vendedoresTotal").innerText = (JSON.parse(localStorage.getItem("vendedores")) || []).length;
+        document.getElementById("proveedoresTotal").innerText = (JSON.parse(localStorage.getItem("proveedores")) || []).length;
+        document.getElementById("comisionistasTotal").innerText = (JSON.parse(localStorage.getItem("comisionistas")) || []).length;
+    }
+
+    // Llamar al dashboard al inicio
+    actualizarDashboard();
+});
