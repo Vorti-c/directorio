@@ -185,14 +185,14 @@ body {
   background-color: #e64a19;
 }
 
-/* Mensaje de guardado dentro del formulario */
-.form-container .success-message {
+/* Mensaje de error dentro del formulario */
+.form-container .error-message {
   margin-top: 15px; /* Mantiene la separación adecuada */
   padding: 10px 20px; /* Ajusta el tamaño del padding */
-  background-color: #28a745;
-  border: 1px solid #218838;
+  background-color: #dc3545; /* Fondo rojo */
+  border: 1px solid #c82333; /* Borde de un tono más oscuro */
   color: white;
-  font-size: 16px; /* Aumento de tamaño de la fuente */
+  font-size: 16px; /* Tamaño de la fuente */
   border-radius: 8px;
   display: none;
   animation: fadeInMessage 0.5s ease-out;
@@ -202,7 +202,7 @@ body {
   word-wrap: break-word; /* Asegura que el texto no se desborde */
 }
 
-/* Animación para el mensaje de éxito */
+/* Animación para el mensaje de error */
 @keyframes fadeInMessage {
   from {
     opacity: 0;
