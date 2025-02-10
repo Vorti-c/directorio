@@ -185,20 +185,21 @@ body {
   background-color: #e64a19;
 }
 
-/* Mensaje de guardado */
+/* Mensaje de guardado dentro del formulario */
 .form-container .success-message {
-  margin-top: 15px; /* Menor separación entre el botón y el mensaje */
-  padding: 10px 20px; /* Ajuste de padding para que sea más compacto */
+  margin-top: 15px; /* Mantiene la separación adecuada */
+  padding: 10px 20px; /* Ajusta el tamaño del padding */
   background-color: #28a745;
   border: 1px solid #218838;
   color: white;
-  font-size: 16px; /* Aumento del tamaño de la fuente para mejor legibilidad */
+  font-size: 16px; /* Aumento de tamaño de la fuente */
   border-radius: 8px;
   display: none;
   animation: fadeInMessage 0.5s ease-out;
   text-align: center;
   width: 100%;
   box-sizing: border-box;
+  word-wrap: break-word; /* Asegura que el texto no se desborde */
 }
 
 /* Animación para el mensaje de éxito */
