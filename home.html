@@ -95,7 +95,7 @@
               <th>Nombre</th>
               <th>Email</th>
               <th>Teléfono</th>
-              <th>Acciones</th> <!-- Asegurar que esta columna esté presente -->
+              <th>Acciones</th> 
             </tr>
           </thead>
           <tbody id="registrosBody"></tbody>
@@ -109,35 +109,35 @@
         <form id="clientesForm">
           <label for="clienteNombre">Nombre Completo o Razón Social:</label>
           <input type="text" id="clienteNombre" name="clienteNombre" required>
-      
+
           <label for="tipoCliente">Tipo de Cliente (Persona Física o Jurídica):</label>
           <select id="tipoCliente" name="tipoCliente" required>
             <option value="fisica">Persona Física</option>
             <option value="juridica">Persona Jurídica</option>
           </select>
-      
+
           <label for="clienteDomicilio">Domicilio Fiscal y/o Comercial:</label>
           <input type="text" id="clienteDomicilio" name="clienteDomicilio" required>
-      
+
           <label for="clienteTelefonoCorreo">Teléfono y/o Correo Electrónico:</label>
           <input type="text" id="clienteTelefonoCorreo" name="clienteTelefonoCorreo" required>
-      
+
           <label for="clienteIdentificacionFiscal">Identificación Fiscal (RUC, RFC, CUIT, NIF, dependiendo del país):</label>
           <input type="text" id="clienteIdentificacionFiscal" name="clienteIdentificacionFiscal" required>
-      
+
           <label for="clienteFormaPago">Forma de Pago:</label>
           <select id="clienteFormaPago" name="clienteFormaPago" required>
             <option value="efectivo">Efectivo</option>
             <option value="transferencia">Transferencia</option>
             <option value="tarjeta">Tarjeta</option>
           </select>
-      
+
           <label for="clienteCondicionesCredito">Condiciones de Crédito (en caso de aplicarse):</label>
           <input type="text" id="clienteCondicionesCredito" name="clienteCondicionesCredito">
-      
+
           <button type="submit" id="guardarCliente">Guardar Cliente</button>
         </form>
-        <div class="success-message" id="mensajeExitoClientes" style="display: none;">Cliente guardado exitosamente.</div>
+        <div class="success-message" id="mensajeExitoClientes" style="display: none;"></div>
         <div class="error-message" id="mensajeErrorClientes" style="display: none;">Este cliente ya existe.</div>
       </div>
 
@@ -147,25 +147,25 @@
         <form id="vendedoresForm">
           <label for="vendedorNombre">Nombre Completo:</label>
           <input type="text" id="vendedorNombre" name="vendedorNombre" required>
-      
+
           <label for="vendedorIdentificacion">Identificación Personal (DNI, Pasaporte, etc.):</label>
           <input type="text" id="vendedorIdentificacion" name="vendedorIdentificacion" required>
-      
+
           <label for="vendedorDireccion">Dirección:</label>
           <input type="text" id="vendedorDireccion" name="vendedorDireccion" required>
-      
+
           <label for="vendedorTelefonoCorreo">Teléfono y/o Correo Electrónico:</label>
           <input type="text" id="vendedorTelefonoCorreo" name="vendedorTelefonoCorreo" required>
-      
+
           <label for="vendedorContrato">Contrato o Acuerdo Comercial:</label>
           <input type="text" id="vendedorContrato" name="vendedorContrato" required>
-      
+
           <label for="vendedorFormaPagoComision">Forma de Pago o Comisiones Acordadas:</label>
           <input type="text" id="vendedorFormaPagoComision" name="vendedorFormaPagoComision" required>
-      
+
           <button type="submit" id="guardarVendedor">Guardar Vendedor</button>
         </form>
-        <div class="success-message" id="mensajeExitoVendedores" style="display: none;">Vendedor guardado exitosamente.</div>
+        <div class="success-message" id="mensajeExitoVendedores" style="display: none;"></div>
         <div class="error-message" id="mensajeErrorVendedores" style="display: none;">Este vendedor ya existe.</div>
       </div>
 
@@ -175,28 +175,28 @@
         <form id="proveedoresForm">
           <label for="proveedorNombre">Nombre Completo o Razón Social:</label>
           <input type="text" id="proveedorNombre" name="proveedorNombre" required>
-      
+
           <label for="proveedorIdentificacionFiscal">Identificación Fiscal (RUC, RFC, CUIT, etc.):</label>
           <input type="text" id="proveedorIdentificacionFiscal" name="proveedorIdentificacionFiscal" required>
-      
+
           <label for="proveedorDomicilio">Domicilio Fiscal y/o Comercial:</label>
           <input type="text" id="proveedorDomicilio" name="proveedorDomicilio" required>
-      
+
           <label for="proveedorTelefonoCorreo">Teléfono y/o Correo Electrónico:</label>
           <input type="text" id="proveedorTelefonoCorreo" name="proveedorTelefonoCorreo" required>
-      
+
           <label for="proveedorCuentaBancaria">Cuenta Bancaria para Pagos:</label>
           <input type="text" id="proveedorCuentaBancaria" name="proveedorCuentaBancaria" required>
-      
+
           <label for="proveedorCatalogo">Catálogo de Productos/Servicios:</label>
           <input type="text" id="proveedorCatalogo" name="proveedorCatalogo" required>
-      
+
           <label for="proveedorTerminosPago">Términos de Pago y Descuentos:</label>
           <input type="text" id="proveedorTerminosPago" name="proveedorTerminosPago" required>
-      
+
           <button type="submit" id="guardarProveedor">Guardar Proveedor</button>
         </form>
-        <div class="success-message" id="mensajeExitoProveedores" style="display: none;">Proveedor guardado exitosamente.</div>
+        <div class="success-message" id="mensajeExitoProveedores" style="display: none;"></div>
         <div class="error-message" id="mensajeErrorProveedores" style="display: none;">Este proveedor ya existe.</div>
       </div>
 
@@ -206,25 +206,25 @@
         <form id="comisionistasForm">
           <label for="comisionistaNombre">Nombre Completo:</label>
           <input type="text" id="comisionistaNombre" name="comisionistaNombre" required>
-      
+
           <label for="comisionistaIdentificacion">Identificación Personal o Fiscal:</label>
           <input type="text" id="comisionistaIdentificacion" name="comisionistaIdentificacion" required>
-      
+
           <label for="comisionistaDireccion">Dirección:</label>
           <input type="text" id="comisionistaDireccion" name="comisionistaDireccion" required>
-      
+
           <label for="comisionistaTelefonoCorreo">Teléfono y/o Correo Electrónico:</label>
           <input type="text" id="comisionistaTelefonoCorreo" name="comisionistaTelefonoCorreo" required>
-      
+
           <label for="comisionistaComision">Acuerdo de Comisiones (Porcentaje, Condiciones):</label>
           <input type="text" id="comisionistaComision" name="comisionistaComision" required>
-      
+
           <label for="comisionistaBancoCuenta">Banco y Cuenta para Pagos:</label>
           <input type="text" id="comisionistaBancoCuenta" name="comisionistaBancoCuenta" required>
-      
+
           <button type="submit" id="guardarComisionista">Guardar Comisionista</button>
         </form>
-        <div class="success-message" id="mensajeExitoComisionistas" style="display: none;">Comisionista guardado exitosamente.</div>
+        <div class="success-message" id="mensajeExitoComisionistas" style="display: none;"></div>
         <div class="error-message" id="mensajeErrorComisionistas" style="display: none;">Este comisionista ya existe.</div>
       </div>
     </div>
@@ -239,3 +239,4 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
 </body>
 </html>
+
