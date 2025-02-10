@@ -229,6 +229,38 @@
 
   <!-- Script -->
   <script src="script.js"></script>
+  <script>
+    // Manejo de la navegación en el menú
+    const menuItems = document.querySelectorAll('nav ul li a');
+    const sections = {
+      'menuInicio': 'welcomeMessage',
+      'menuClientes': 'formClientes',
+      'menuVendedores': 'formVendedores',
+      'menuProveedores': 'formProveedores',
+      'menuComisionistas': 'formComisionistas',
+      'menuDashboard': 'dashboard',
+      'menuRegistros': 'tableRegistros'
+    };
+
+    menuItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Ocultar todas las secciones
+        for (let section in sections) {
+          document.getElementById(sections[section]).style.display = 'none';
+        }
+
+        // Mostrar la sección correspondiente
+        const target = item.id;
+        if (sections[target]) {
+          document.getElementById(sections[target]).style.display = 'block';
+        }
+      });
+    });
+
+    // Mostrar la sección de inicio por defecto
+    document.getElementById('welcomeMessage').style.display = 'block';
+  </script>
 </body>
 </html>
-
