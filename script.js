@@ -96,8 +96,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // 🌟 Celda de Acciones
             let actionsCell = row.insertCell(4);
             actionsCell.innerHTML = `
-                <button class="btn-edit" onclick="editarRegistro('${categoria}', ${index})">✏️ Editar</button>
-                <button class="btn-delete" onclick="eliminarRegistro('${categoria}', ${index})">🗑️ Eliminar</button>
+                <button class="btn btn-edit" onclick="editarRegistro('${categoria}', ${index})">✏️ Editar</button>
+                <button class="btn btn-delete" onclick="eliminarRegistro('${categoria}', ${index})">🗑️ Eliminar</button>
             `;
         });
     }
