@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // 🌟 Menú de navegación
+    // 🌟 Mapeo de Menú de Navegación
     const menuItems = {
         menuInicio: "welcomeMessage",
         menuDashboard: "dashboard",
@@ -10,9 +10,12 @@ document.addEventListener("DOMContentLoaded", function () {
         menuRegistros: "tableRegistros",
     };
 
+    // 🌟 Manejo de cambio de vista en el menú
     Object.keys(menuItems).forEach((id) => {
         document.getElementById(id)?.addEventListener("click", () => {
-            Object.values(menuItems).forEach((view) => document.getElementById(view).style.display = "none");
+            Object.values(menuItems).forEach((view) => {
+                document.getElementById(view).style.display = "none";
+            });
             document.getElementById(menuItems[id]).style.display = "block";
         });
     });
@@ -24,32 +27,31 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => (mensaje.style.display = "none"), 3000);
     }
 
-    // 🌟 Guardar Registros en localStorage
+    // 🌟 Guardar Registros en LocalStorage
     function guardarRegistro(categoria, registro) {
         let registros = JSON.parse(localStorage.getItem(categoria)) || [];
 
-        // Verificar si ya existe
+        // Verificar si ya existe (Evitar duplicados por nombre)
         if (registros.some((r) => r.nombre === registro.nombre)) {
             mostrarMensaje(`mensajeError${capitalize(categoria)}`);
             return;
         }
 
-        // Guardar en localStorage
+        // Guardar registro y actualizar UI
         registros.push(registro);
         localStorage.setItem(categoria, JSON.stringify(registros));
 
-        // Mensaje de éxito y actualizar tabla
         mostrarMensaje(`mensajeExito${capitalize(categoria)}`);
         actualizarDashboard();
         consultarRegistros();
     }
 
-    // 🌟 Capitalizar
+    // 🌟 Capitalizar primera letra
     function capitalize(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    // 🌟 Manejo de formularios
+    // 🌟 Manejo de Formularios
     document.querySelectorAll("form").forEach((form) => {
         form.addEventListener("submit", function (e) {
             e.preventDefault();
@@ -65,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 🌟 Consultar Registros
+    // 🌟 Consultar Registros y Renderizar Tabla
     function consultarRegistros() {
         const categoria = document.getElementById("categoriaSelect").value;
         const registros = JSON.parse(localStorage.getItem(categoria)) || [];
@@ -91,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
             row.insertCell(2).innerText = registro.email || "N/A";
             row.insertCell(3).innerText = registro.telefono || "N/A";
 
-            // 🌟 Celda de Acciones (Botón Editar y Eliminar juntos)
+            // 🌟 Celda de Acciones
             let actionsCell = row.insertCell(4);
             actionsCell.innerHTML = `
                 <button class="btn-edit" onclick="editarRegistro('${categoria}', ${index})">✏️ Editar</button>
@@ -152,13 +154,15 @@ document.addEventListener("DOMContentLoaded", function () {
         XLSX.writeFile(wb, `${categoria}_registros.xlsx`);
     });
 
-    // 🌟 Actualizar Dashboard
+    // 🌟 Actualizar Contador del Dashboard
     function actualizarDashboard() {
         ["clientes", "vendedores", "proveedores", "comisionistas"].forEach((categoria) => {
-            document.getElementById(`${categoria}Total`).innerText = (JSON.parse(localStorage.getItem(categoria)) || []).length;
+            document.getElementById(`${categoria}Total`).innerText =
+                (JSON.parse(localStorage.getItem(categoria)) || []).length;
         });
     }
 
-    // Llamar al dashboard al inicio
+    // 🌟 Llamar a la función para cargar el dashboard al inicio
     actualizarDashboard();
 });
+
