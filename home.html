@@ -102,7 +102,6 @@
         </table>
       </div>
 
-
       <!-- Formulario de Clientes -->
       <div id="formClientes" class="form-container" style="display: none;">
         <h2>Formulario de Clientes</h2>
@@ -176,9 +175,60 @@
           Este vendedor ya está registrado.
         </div>
       </div>
+
+      <!-- Formulario de Proveedores -->
+      <div id="formProveedores" class="form-container" style="display: none;">
+        <h2>Formulario de Proveedores</h2>
+        <form id="proveedoresForm">
+          <label for="proveedorNombre">Nombre del Proveedor:</label>
+          <input type="text" id="proveedorNombre" name="proveedorNombre" required>
+
+          <label for="proveedorRfc">RFC o Identificación del Proveedor:</label>
+          <input type="text" id="proveedorRfc" name="proveedorRfc" required>
+
+          <label for="proveedorDomicilio">Domicilio del Proveedor:</label>
+          <input type="text" id="proveedorDomicilio" name="proveedorDomicilio" required>
+
+          <label for="proveedorTelefonoCorreo">Teléfono y/o Correo Electrónico:</label>
+          <input type="text" id="proveedorTelefonoCorreo" name="proveedorTelefonoCorreo" required>
+
+          <button type="submit" id="guardarProveedor">Guardar Proveedor</button>
+        </form>
+        <div class="success-message" id="mensajeExitoProveedores" style="display: none;">
+          Registro guardado exitosamente.
+        </div>
+        <div class="error-message" id="mensajeErrorProveedores" style="display: none; color: red;">
+          Este proveedor ya está registrado.
+        </div>
+      </div>
+
+      <!-- Formulario de Comisionistas -->
+      <div id="formComisionistas" class="form-container" style="display: none;">
+        <h2>Formulario de Comisionistas</h2>
+        <form id="comisionistasForm">
+          <label for="comisionistaNombre">Nombre del Comisionista:</label>
+          <input type="text" id="comisionistaNombre" name="comisionistaNombre" required>
+
+          <label for="comisionistaRfc">RFC o Identificación del Comisionista:</label>
+          <input type="text" id="comisionistaRfc" name="comisionistaRfc" required>
+
+          <label for="comisionistaTelefonoCorreo">Teléfono y/o Correo Electrónico:</label>
+          <input type="text" id="comisionistaTelefonoCorreo" name="comisionistaTelefonoCorreo" required>
+
+          <button type="submit" id="guardarComisionista">Guardar Comisionista</button>
+        </form>
+        <div class="success-message" id="mensajeExitoComisionistas" style="display: none;">
+          Registro guardado exitosamente.
+        </div>
+        <div class="error-message" id="mensajeErrorComisionistas" style="display: none; color: red;">
+          Este comisionista ya está registrado.
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- Script -->
   <script src="script.js"></script>
 </body>
 </html>
+
