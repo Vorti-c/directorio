@@ -165,4 +165,3 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🌟 Llamar a la función para cargar el dashboard al inicio
     actualizarDashboard();
 });
-
