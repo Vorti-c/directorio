@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // 🌟 Manejadores del menú
+    // 🌟 Menú de navegación
     const menuItems = {
         menuInicio: "welcomeMessage",
         menuDashboard: "dashboard",
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 🌟 Función para mostrar mensajes de éxito/error
+    // 🌟 Mostrar mensajes de éxito/error
     function mostrarMensaje(id) {
         const mensaje = document.getElementById(id);
         mensaje.style.display = "block";
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let registros = JSON.parse(localStorage.getItem(categoria)) || [];
 
         // Verificar si ya existe
-        if (registros.some((r) => r.clienteNombre === registro.clienteNombre)) {
+        if (registros.some((r) => r.nombre === registro.nombre)) {
             mostrarMensaje(`mensajeError${capitalize(categoria)}`);
             return;
         }
@@ -38,18 +38,18 @@ document.addEventListener("DOMContentLoaded", function () {
         registros.push(registro);
         localStorage.setItem(categoria, JSON.stringify(registros));
 
-        // Mensaje de éxito y actualizar la tabla y el dashboard
+        // Mensaje de éxito y actualizar tabla
         mostrarMensaje(`mensajeExito${capitalize(categoria)}`);
         actualizarDashboard();
         consultarRegistros();
     }
 
-    // 🌟 Función para Capitalizar
+    // 🌟 Capitalizar
     function capitalize(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    // 🌟 Agregar eventos a los formularios dinámicamente
+    // 🌟 Manejo de formularios
     document.querySelectorAll("form").forEach((form) => {
         form.addEventListener("submit", function (e) {
             e.preventDefault();
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const registro = {};
             this.querySelectorAll("input, select, textarea").forEach((input) => {
-                registro[input.id] = input.value;
+                registro[input.name] = input.value;
             });
 
             guardarRegistro(categoria, registro);
@@ -65,12 +65,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 🌟 Consultar Registros y Agregar Botones de Editar/Eliminar
+    // 🌟 Consultar Registros
     function consultarRegistros() {
         const categoria = document.getElementById("categoriaSelect").value;
         const registros = JSON.parse(localStorage.getItem(categoria)) || [];
-        const tabla = document.getElementById("registrosTable");
         const tbody = document.getElementById("registrosBody");
+        const tabla = document.getElementById("registrosTable");
         const mensajeNoRegistros = document.getElementById("mensajeNoRegistros");
 
         tbody.innerHTML = "";
@@ -87,53 +87,46 @@ document.addEventListener("DOMContentLoaded", function () {
         registros.forEach((registro, index) => {
             let row = tbody.insertRow();
             row.insertCell(0).innerText = index + 1;
-            row.insertCell(1).innerText = registro.clienteNombre || "N/A";
-            row.insertCell(2).innerText = registro.clienteTelefonoCorreo || "N/A";
-            row.insertCell(3).innerText = registro.clienteIdentificacionFiscal || "N/A";
+            row.insertCell(1).innerText = registro.nombre || "N/A";
+            row.insertCell(2).innerText = registro.email || "N/A";
+            row.insertCell(3).innerText = registro.telefono || "N/A";
 
-            // Botón Editar
-            let editBtn = document.createElement("button");
-            editBtn.innerHTML = "✏️ Editar";
-            editBtn.classList.add("btn-edit");
-            editBtn.onclick = () => editarRegistro(categoria, index);
-            row.insertCell(4).appendChild(editBtn);
-
-            // Botón Eliminar
-            let deleteBtn = document.createElement("button");
-            deleteBtn.innerHTML = "🗑️ Eliminar";
-            deleteBtn.classList.add("btn-delete");
-            deleteBtn.onclick = () => eliminarRegistro(categoria, index);
-            row.insertCell(5).appendChild(deleteBtn);
+            // 🌟 Celda de Acciones (Botón Editar y Eliminar juntos)
+            let actionsCell = row.insertCell(4);
+            actionsCell.innerHTML = `
+                <button class="btn-edit" onclick="editarRegistro('${categoria}', ${index})">✏️ Editar</button>
+                <button class="btn-delete" onclick="eliminarRegistro('${categoria}', ${index})">🗑️ Eliminar</button>
+            `;
         });
     }
 
     document.getElementById("consultarRegistrosBtn").addEventListener("click", consultarRegistros);
 
     // 🌟 Editar Registro
-    function editarRegistro(categoria, index) {
+    window.editarRegistro = function (categoria, index) {
         let registros = JSON.parse(localStorage.getItem(categoria)) || [];
         let registro = registros[index];
 
-        let nuevoNombre = prompt("Editar nombre:", registro.clienteNombre);
-        let nuevoTelefonoCorreo = prompt("Editar Teléfono/Correo:", registro.clienteTelefonoCorreo);
-        let nuevaIdentificacion = prompt("Editar Identificación Fiscal:", registro.clienteIdentificacionFiscal);
+        let nuevoNombre = prompt("Editar nombre:", registro.nombre);
+        let nuevoEmail = prompt("Editar Email:", registro.email);
+        let nuevoTelefono = prompt("Editar Teléfono:", registro.telefono);
 
-        if (nuevoNombre && nuevoTelefonoCorreo && nuevaIdentificacion) {
+        if (nuevoNombre && nuevoEmail && nuevoTelefono) {
             registros[index] = {
                 ...registro,
-                clienteNombre: nuevoNombre,
-                clienteTelefonoCorreo: nuevoTelefonoCorreo,
-                clienteIdentificacionFiscal: nuevaIdentificacion,
+                nombre: nuevoNombre,
+                email: nuevoEmail,
+                telefono: nuevoTelefono,
             };
 
             localStorage.setItem(categoria, JSON.stringify(registros));
             consultarRegistros();
             actualizarDashboard();
         }
-    }
+    };
 
     // 🌟 Eliminar Registro
-    function eliminarRegistro(categoria, index) {
+    window.eliminarRegistro = function (categoria, index) {
         let registros = JSON.parse(localStorage.getItem(categoria)) || [];
         if (confirm("¿Estás seguro de eliminar este registro?")) {
             registros.splice(index, 1);
@@ -141,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
             consultarRegistros();
             actualizarDashboard();
         }
-    }
+    };
 
     // 🌟 Descargar Registros en Excel
     document.getElementById("descargarRegistrosBtn").addEventListener("click", function () {
