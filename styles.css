@@ -185,12 +185,12 @@ body {
   background-color: #e64a19;
 }
 
-/* Mensaje de éxito */
+/* Mensaje de guardado */
 .form-container .success-message {
-  margin-top: 15px;
-  padding: 15px;
-  background-color: #28a745; /* Verde */
-  border: 1px solid #218838; /* Verde oscuro */
+  margin-top: 15px; /* Menor separación entre el botón y el mensaje */
+  padding: 15px; /* Menos padding */
+  background-color: #28a745;
+  border: 1px solid #218838;
   color: white;
   font-size: 14px; /* Fuente más pequeña */
   border-radius: 8px;
@@ -200,22 +200,7 @@ body {
   width: 100%;
 }
 
-/* Mensaje de error */
-.form-container .error-message {
-  margin-top: 15px;
-  padding: 15px;
-  background-color: #dc3545; /* Rojo */
-  border: 1px solid #c82333; /* Rojo oscuro */
-  color: white;
-  font-size: 14px; /* Fuente más pequeña */
-  border-radius: 8px;
-  display: none;
-  animation: fadeInMessage 0.5s ease-out;
-  text-align: center;
-  width: 100%;
-}
-
-/* Animación para los mensajes */
+/* Animación para el mensaje de éxito */
 @keyframes fadeInMessage {
   from {
     opacity: 0;
@@ -304,4 +289,3 @@ table th {
 .btn-eliminar:hover {
   background-color: #d32f2f;
 }
-
