@@ -1,4 +1,4 @@
-/* 🌟 General Styles */
+/* General Styles */
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
@@ -6,30 +6,30 @@ body {
   transition: margin-left 0.3s ease;
 }
 
-/* 🌟 Dashboard Container */
+/* Dashboard Container */
 .dashboard-container {
   display: flex;
-  height: 100vh; /* Ocupa toda la pantalla */
+  height: 100vh; /* Hace que todo ocupe la altura completa */
 }
 
-/* 🌟 Sidebar */
+/* Sidebar */
 .sidebar {
   width: 250px;
-  background: linear-gradient(135deg, #4d4e4e, #ff7043);
+  background: linear-gradient(135deg, #4d4e4e, #ff7043); /* Fondo degradado */
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-  position: fixed;
-  height: 100%;
+  position: fixed; /* Fijo en el lado izquierdo */
+  height: 100%; /* Ocupa toda la altura */
   transition: transform 0.3s ease-in-out;
-  transform: translateX(0);
+  transform: translateX(0); /* Asegura que el menú esté visible por defecto */
 }
 
 .sidebar h2 {
-  font-size: 24px;
+  font-size: 24px; /* Aumenta el tamaño del título */
   margin-bottom: 20px;
 }
 
@@ -44,18 +44,18 @@ body {
   margin: 15px 0;
 }
 
-/* 🌟 Sidebar Menu */
+/* Menú Opciones */
 .sidebar ul li a,
 .sidebar ul li button {
   display: flex;
   align-items: center;
   color: white;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 24px; /* Aumenta el tamaño de la fuente */
   background: none;
   border: none;
   width: 100%;
-  padding: 15px 20px;
+  padding: 15px 20px; /* Aumenta el padding */
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s;
@@ -63,8 +63,8 @@ body {
 
 .sidebar ul li a i,
 .sidebar ul li button i {
-  margin-right: 14px;
-  font-size: 24px;
+  margin-right: 14px; /* Ajusta el espacio entre el ícono y el texto */
+  font-size: 30px; /* Aumenta el tamaño del ícono */
 }
 
 .sidebar ul li a:hover,
@@ -72,24 +72,28 @@ body {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* 🌟 Sidebar Active (Hidden) */
-.sidebar.active {
-  transform: translateX(-300px);
+/* Menú Toggle */
+.menu-toggle {
+  position: fixed; /* Fija el ícono en su posición */
+  top: 20px; /* Mantiene la posición desde la parte superior */
+  left: 20px; /* Mantiene la posición desde la parte izquierda */
+  background: none;
+  border: none;
+  color: #ff7043;
+  font-size: 30px; /* Aumenta el tamaño del ícono */
+  cursor: pointer;
+  z-index: 1000; /* Asegura que el ícono esté encima de otros elementos */
 }
 
-/* 🌟 Content Area */
+/* Content Area */
 .content {
-  margin-left: 270px;
+  margin-left: 300px; /* Aumenta el margen izquierdo para más espacio */
   padding: 40px;
-  width: calc(100% - 270px);
+  width: calc(100% - 300px); /* Ajuste de espacio para el contenido */
   transition: margin-left 0.3s ease;
 }
 
-.content.active {
-  margin-left: 0;
-}
-
-/* 🌟 Dashboard Stats */
+/* Dashboard Stats */
 .stats-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -108,59 +112,70 @@ body {
 
 .stat-item h3 {
   color: #4d4e4e;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .stat-item p {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
   margin-top: 10px;
   color: #333;
 }
 
-/* 🌟 Forms */
+/* Sidebar Active (visible) */
+.sidebar.active {
+  transform: translateX(-300px); /* Mueve el sidebar fuera de la vista */
+}
+
+.content.active {
+  margin-left: 0; /* Ajusta el contenido para que ocupe todo el espacio cuando el sidebar está oculto */
+}
+
+/* Formularios */
 .form-container {
-  background-color: #f5f5f5;
-  padding: 20px;
+  background-color: #b9b7b7;
+  padding: 15px; /* Menor padding para más compactación */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 30px auto;
-  max-width: 800px;
+  margin: 30px auto; /* Centra el formulario */
+  max-width: 1200px; /* Aumenta el ancho máximo */
   width: 95%;
 }
 
 .form-container form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 15px; /* Menor espacio entre los campos */
 }
 
 .form-container label {
+  margin-bottom: 5px;
   font-weight: bold;
+  font-size: 14px; /* Fuente más pequeña */
 }
 
 .form-container input,
 .form-container textarea,
 .form-container select {
-  padding: 10px;
+  padding: 10px; /* Menor padding para más compactación */
   border-radius: 5px;
   border: 1px solid #ccc;
-  font-size: 14px;
+  font-size: 14px; /* Fuente más pequeña */
   width: 100%;
   box-sizing: border-box;
 }
 
 .form-container textarea {
   resize: none;
-  height: 120px;
+  height: 150px; /* Menor altura */
 }
 
 .form-container button {
-  padding: 12px;
+  padding: 12px; /* Botón más pequeño */
   background-color: #ff7043;
   border: none;
   color: white;
-  font-size: 16px;
+  font-size: 16px; /* Texto del botón más pequeño */
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
@@ -170,7 +185,48 @@ body {
   background-color: #e64a19;
 }
 
-/* 🌟 Table */
+/* Mensaje de guardado */
+.form-container .success-message {
+  margin-top: 15px; /* Menor separación entre el botón y el mensaje */
+  padding: 15px; /* Menos padding */
+  background-color: #28a745;
+  border: 1px solid #218838;
+  color: white;
+  font-size: 14px; /* Fuente más pequeña */
+  border-radius: 8px;
+  display: none;
+  animation: fadeInMessage 0.5s ease-out;
+  text-align: center;
+  width: 100%;
+}
+
+/* Animación para el mensaje de éxito */
+@keyframes fadeInMessage {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Logo en la esquina inferior derecha */
+.logo-bottom-right {
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  width: 60px; /* Ajusta el tamaño del logo */
+  height: auto;
+  opacity: 0.8; /* Para que no sea demasiado llamativo */
+}
+
+.logo-bottom-right:hover {
+  opacity: 1; /* Aumenta la opacidad al pasar el mouse */
+}
+
+/* Estilo para la tabla */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -187,86 +243,7 @@ table th {
   background-color: #f2f2f2;
 }
 
-/* 🌟 Buttons */
-.btn-edit {
-  background-color: #ff9800;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 3px;
-}
-
-.btn-edit:hover {
-  background-color: #e68900;
-}
-
-.btn-delete {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 3px;
-}
-
-.btn-delete:hover {
-  background-color: #d32f2f;
-}
-
-/* 🌟 Messages */
-.success-message,
-.error-message {
-  margin-top: 15px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-align: center;
-  width: 100%;
-  box-sizing: border-box;
-  word-wrap: break-word;
-  display: none;
-  animation: fadeInMessage 0.5s ease-out;
-}
-
-.success-message {
-  background-color: #28a745;
-  border: 1px solid #218838;
-  color: white;
-}
-
-.error-message {
-  background-color: #dc3545;
-  border: 1px solid #c82333;
-  color: white;
-}
-
-/* 🌟 Animations */
-@keyframes fadeInMessage {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 🌟 Floating Logo */
-.logo-bottom-right {
-  position: fixed;
-  bottom: 20px;
-  right: 10px;
-  width: 60px;
-  height: auto;
-  opacity: 0.8;
-}
-
-.logo-bottom-right:hover {
-  opacity: 1;
-}
-
-/* 🌟 Responsive Design */
+/* Responsive: Ajustes para pantallas pequeñas */
 @media screen and (max-width: 768px) {
   .sidebar {
     width: 200px;
@@ -278,41 +255,39 @@ table th {
   }
 
   .stats-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+  }
+
+  .menu-toggle {
+    font-size: 25px;
+  }
+
+  .logo-bottom-right {
+    width: 50px; /* Reducción del tamaño del logo */
   }
 
   .form-container {
     max-width: 100%;
+    padding: 20px;
+  }
+
+  .form-container button {
+    font-size: 18px;
     padding: 15px;
   }
-
-  .logo-bottom-right {
-    width: 50px;
-  }
 }
 
-@media screen and (max-width: 480px) {
-  .sidebar {
-    width: 100%;
-    position: absolute;
-    transform: translateX(-100%);
-  }
-
-  .sidebar.active {
-    transform: translateX(0);
-  }
-
-  .content {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .stats-container {
-    grid-template-columns: 1fr;
-  }
-
-  .form-container {
-    padding: 10px;
-  }
+.btn-eliminar {
+  background-color: #f44336; /* Rojo */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
 }
+
+.btn-eliminar:hover {
+  background-color: #d32f2f;
+}
+
 
