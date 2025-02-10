@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🌟 Función para mostrar mensajes de éxito/error
     function mostrarMensaje(id) {
         const mensaje = document.getElementById(id);
-        mensaje.classList.add("show"); 
-        setTimeout(() => mensaje.classList.remove("show"), 3000);
+        mensaje.style.display = "block";
+        setTimeout(() => (mensaje.style.display = "none"), 3000);
     }
 
     // 🌟 Guardar Registros en localStorage
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let registros = JSON.parse(localStorage.getItem(categoria)) || [];
 
         // Verificar si ya existe
-        if (registros.some((r) => r.nombre === registro.nombre)) {
+        if (registros.some((r) => r.clienteNombre === registro.clienteNombre)) {
             mostrarMensaje(`mensajeError${capitalize(categoria)}`);
             return;
         }
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Mensaje de éxito y actualizar la tabla y el dashboard
         mostrarMensaje(`mensajeExito${capitalize(categoria)}`);
         actualizarDashboard();
-        consultarRegistros(); 
+        consultarRegistros();
     }
 
     // 🌟 Función para Capitalizar
@@ -49,11 +49,11 @@ document.addEventListener("DOMContentLoaded", function () {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    // 🌟 Agregar eventos a todos los formularios dinámicamente
+    // 🌟 Agregar eventos a los formularios dinámicamente
     document.querySelectorAll("form").forEach((form) => {
         form.addEventListener("submit", function (e) {
             e.preventDefault();
-            const categoria = this.dataset.categoria;
+            const categoria = this.id.replace("Form", "").toLowerCase();
 
             const registro = {};
             this.querySelectorAll("input, select, textarea").forEach((input) => {
@@ -71,32 +71,36 @@ document.addEventListener("DOMContentLoaded", function () {
         const registros = JSON.parse(localStorage.getItem(categoria)) || [];
         const tabla = document.getElementById("registrosTable");
         const tbody = document.getElementById("registrosBody");
+        const mensajeNoRegistros = document.getElementById("mensajeNoRegistros");
+
         tbody.innerHTML = "";
 
         if (registros.length === 0) {
-            mostrarMensaje("mensajeNoRegistros");
+            mensajeNoRegistros.style.display = "block";
             tabla.style.display = "none";
             return;
         }
 
-        tabla.style.display = "block";
+        mensajeNoRegistros.style.display = "none";
+        tabla.style.display = "table";
+
         registros.forEach((registro, index) => {
             let row = tbody.insertRow();
             row.insertCell(0).innerText = index + 1;
-            row.insertCell(1).innerText = registro.nombre;
-            row.insertCell(2).innerText = registro.telefonoCorreo || "-";
-            row.insertCell(3).innerText = registro.identificacionFiscal || "-";
+            row.insertCell(1).innerText = registro.clienteNombre || "N/A";
+            row.insertCell(2).innerText = registro.clienteTelefonoCorreo || "N/A";
+            row.insertCell(3).innerText = registro.clienteIdentificacionFiscal || "N/A";
 
             // Botón Editar
             let editBtn = document.createElement("button");
-            editBtn.innerText = "✏️ Editar";
+            editBtn.innerHTML = "✏️ Editar";
             editBtn.classList.add("btn-edit");
             editBtn.onclick = () => editarRegistro(categoria, index);
             row.insertCell(4).appendChild(editBtn);
 
             // Botón Eliminar
             let deleteBtn = document.createElement("button");
-            deleteBtn.innerText = "🗑️ Eliminar";
+            deleteBtn.innerHTML = "🗑️ Eliminar";
             deleteBtn.classList.add("btn-delete");
             deleteBtn.onclick = () => eliminarRegistro(categoria, index);
             row.insertCell(5).appendChild(deleteBtn);
@@ -110,16 +114,16 @@ document.addEventListener("DOMContentLoaded", function () {
         let registros = JSON.parse(localStorage.getItem(categoria)) || [];
         let registro = registros[index];
 
-        let nuevoNombre = prompt("Editar nombre:", registro.nombre);
-        let nuevoTelefonoCorreo = prompt("Editar Teléfono/Correo:", registro.telefonoCorreo);
-        let nuevaIdentificacion = prompt("Editar Identificación Fiscal:", registro.identificacionFiscal);
+        let nuevoNombre = prompt("Editar nombre:", registro.clienteNombre);
+        let nuevoTelefonoCorreo = prompt("Editar Teléfono/Correo:", registro.clienteTelefonoCorreo);
+        let nuevaIdentificacion = prompt("Editar Identificación Fiscal:", registro.clienteIdentificacionFiscal);
 
         if (nuevoNombre && nuevoTelefonoCorreo && nuevaIdentificacion) {
             registros[index] = {
                 ...registro,
-                nombre: nuevoNombre,
-                telefonoCorreo: nuevoTelefonoCorreo,
-                identificacionFiscal: nuevaIdentificacion,
+                clienteNombre: nuevoNombre,
+                clienteTelefonoCorreo: nuevoTelefonoCorreo,
+                clienteIdentificacionFiscal: nuevaIdentificacion,
             };
 
             localStorage.setItem(categoria, JSON.stringify(registros));
